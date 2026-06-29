@@ -1,31 +1,48 @@
-# Student Result Management API
+# ApexGrade Cloud (Monorepo)
 
-Backend API built with Node.js, Express, and MongoDB.
+This is a unified monorepo containing both the **ApexGrade Cloud Next.js Frontend** and **Node.js Express Backend**.
 
-## Setup
+## Structure
 
-1. Install dependencies:
+- `/backend`: Node.js, Express, and Mongoose (MongoDB) REST API.
+- `/frontend`: Next.js (App Router), Tailwind CSS client portal.
 
+## Prerequisites
+
+- **Node.js**: v18.x or higher
+- **MongoDB**: A running instance (local or remote)
+
+## Installation & Setup
+
+1. **Install all dependencies** (root, backend, and frontend) in one go:
    ```bash
-   npm install
+   npm run install:all
    ```
 
-2. Create a `.env` file from `.env.example` and update the MongoDB connection if needed.
-
-3. Start the server:
-
+2. **Configure Environment Variables**:
+   Go to the `backend/` directory, copy `.env.example` to `.env`, and update the configuration if necessary:
    ```bash
-   npm start
+   cd backend
+   cp .env.example .env
    ```
+   By default, the backend expects:
+   - `PORT=5000`
+   - `MONGO_URI=mongodb://127.0.0.1:27017/student_result_db`
 
-The API runs on `http://localhost:5000` by default.
+## Running the Application
 
-## Routes
+To run **both** the backend API and the frontend client concurrently, run the following command in the root folder:
 
-- `GET /` - Health check
-- `POST /api/students/add` - Add a student result
-- `GET /api/students` - Get all student results
-- `GET /api/students/:rollNo` - Get one student by roll number
-- `POST /api/auth/login` - Save a login action
-- `POST /api/auth/signup` - Save a signup action
-- `GET /api/auth/stats` - Get login/signup counts
+```bash
+npm run dev
+```
+
+- **Frontend Client**: Runs on [http://localhost:3000](http://localhost:3000)
+- **Backend API**: Runs on [http://localhost:5000](http://localhost:5000)
+
+## API endpoints
+
+- `POST /api/auth/login` - Authenticate users (Admin, Faculty, Students).
+- `GET /api/students` - Retrieve student directory entries.
+- `POST /api/students/add` - Add a new student record and automatically compute their grade.
+- `GET /api/auth/stats` - Display login metrics for the Admin system dashboard.

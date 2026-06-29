@@ -7,18 +7,17 @@ const studentRoutes = require("./routes/studentRoutes");
 
 const app = express();
 
-const authRoutes = require("./routes/authRoutes");
+// Middleware (must be before routes)
+app.use(cors());
+app.use(express.json());
 
-app.use("/api/auth", authRoutes);
+const authRoutes = require("./routes/authRoutes");
 
 // Connect Database
 connectDB();
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-
 // Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/students", studentRoutes);
 
 // Home route
